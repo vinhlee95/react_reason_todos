@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
+import * as TodoItem$RescriptReactTodos from "./TodoItem.bs.js";
 
 var todos = [
   {
@@ -18,12 +19,11 @@ var todos = [
 
 function Todos(Props) {
   var todoList = Belt_Array.map(todos, (function (todo) {
-          return React.createElement("div", undefined, React.createElement("li", {
-                          key: todo.id
-                        }, todo.body), React.createElement("input", {
-                          checked: todo.completed,
-                          type: "checkbox"
-                        }));
+          return React.createElement(TodoItem$RescriptReactTodos.make, {
+                      body: todo.body,
+                      completed: todo.completed,
+                      key: todo.id
+                    });
         }));
   return React.createElement("div", {
               className: "todos_list"

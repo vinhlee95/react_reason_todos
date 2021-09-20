@@ -20,12 +20,7 @@ let todos: array<todo> = [
 @react.component
 let make = () => {
   let todoList = Belt.Array.map(todos, todo => {
-    <div>
-      <li key={todo.id}>
-        {React.string(todo.body)}
-      </li>
-      <input type_="checkbox" checked={todo.completed} />
-    </div>
+    <TodoItem key={todo.id} body={todo.body} completed={todo.completed}></TodoItem>
   })
 
   <div className="todos_list">
