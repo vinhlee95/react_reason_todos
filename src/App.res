@@ -3,6 +3,6 @@
 @react.component
 let make = () => {
   <div className="App">
-    <h1>{React.string("Todos")}</h1>
+    <Todos />
   </div>
 }
