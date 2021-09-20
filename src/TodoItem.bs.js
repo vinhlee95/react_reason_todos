@@ -5,9 +5,13 @@ import * as React from "react";
 function TodoItem(Props) {
   var body = Props.body;
   var completed = Props.completed;
-  return React.createElement("div", undefined, React.createElement("p", undefined, body), React.createElement("input", {
+  var onChange = Props.onChange;
+  return React.createElement("div", {
+              className: "todo-item"
+            }, React.createElement("p", undefined, body), React.createElement("input", {
                   checked: completed,
-                  type: "checkbox"
+                  type: "checkbox",
+                  onChange: onChange
                 }));
 }
 
