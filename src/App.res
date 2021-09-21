@@ -4,5 +4,6 @@
 let make = () => {
   <div className="App">
     <Todos />
+    <GithubUsers />
   </div>
 }

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as Todos$RescriptReactTodos from "./Todos.bs.js";
+import * as GithubUsers$RescriptReactTodos from "./GithubUsers.bs.js";
 
 import './App.css';
 ;
@@ -9,7 +10,7 @@ import './App.css';
 function App(Props) {
   return React.createElement("div", {
               className: "App"
-            }, React.createElement(Todos$RescriptReactTodos.make, {}));
+            }, React.createElement(Todos$RescriptReactTodos.make, {}), React.createElement(GithubUsers$RescriptReactTodos.make, {}));
 }
 
 var make = App;
