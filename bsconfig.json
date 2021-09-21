@@ -19,6 +19,5 @@
     "gentypeconfig": {
       "language": "typescript"
     },
-  
-    "bs-dependencies": ["@rescript/react"]
+    "bs-dependencies": ["@rescript/react", "@ryyppy/rescript-promise"]
 }

@@ -5,7 +5,7 @@ import * as React from "react";
 import * as Belt_Array from "bs-platform/lib/es6/belt_Array.js";
 import * as TodoItem$RescriptReactTodos from "./TodoItem.bs.js";
 
-var todos = [
+var fixedTodos = [
   {
     id: "1",
     body: "Go to school",
@@ -20,18 +20,42 @@ var todos = [
 
 function Todos(Props) {
   var match = React.useState(function () {
-        return todos;
+        return [];
       });
   var setTodos = match[1];
-  var todos$1 = match[0];
-  var todoList = Belt_Array.map(todos$1, (function (todo) {
+  var todos = match[0];
+  var match$1 = React.useState(function () {
+        return false;
+      });
+  var setLoading = match$1[1];
+  var fetchData = function (param) {
+    return Promise.resolve(fixedTodos).then(function (res) {
+                return Promise.resolve(res);
+              });
+  };
+  React.useEffect((function () {
+          Curry._1(setLoading, (function (param) {
+                  return true;
+                }));
+          fetchData(undefined).then(function (res) {
+                Curry._1(setTodos, (function (param) {
+                        return res;
+                      }));
+                Curry._1(setLoading, (function (param) {
+                        return false;
+                      }));
+                return Promise.resolve(res);
+              });
+          
+        }), []);
+  var todoList = Belt_Array.map(todos, (function (todo) {
           return React.createElement(TodoItem$RescriptReactTodos.make, {
                       body: todo.body,
                       completed: todo.completed,
                       onChange: (function (e) {
                           var id = todo.id;
                           var checked = e.target.checked;
-                          var updatedTodos = Belt_Array.map(todos$1, (function (todo) {
+                          var updatedTodos = Belt_Array.map(todos, (function (todo) {
                                   if (todo.id !== id) {
                                     return todo;
                                   } else {
@@ -49,15 +73,21 @@ function Todos(Props) {
                       key: todo.id
                     });
         }));
-  return React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "Todos"), React.createElement("div", {
-                  className: "todo-list"
-                }, todoList));
+  var loadingEl = React.createElement("p", undefined, "Loading...");
+  var todoEl = React.createElement(React.Fragment, undefined, React.createElement("h1", undefined, "Todos"), React.createElement("div", {
+            className: "todo-list"
+          }, todoList));
+  if (match$1[0]) {
+    return loadingEl;
+  } else {
+    return todoEl;
+  }
 }
 
 var make = Todos;
 
 export {
-  todos ,
+  fixedTodos ,
   make ,
   
 }

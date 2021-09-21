@@ -4,7 +4,7 @@ type todo = {
   completed: bool
 }
 
-let todos: array<todo> = [
+let fixedTodos: array<todo> = [
   {
     id: "1",
     body: "Go to school",
@@ -19,7 +19,29 @@ let todos: array<todo> = [
 
 @react.component
 let make = () => {
-  let (todos, setTodos) = React.useState(_ => todos)
+  let (todos, setTodos) = React.useState(_ => [])
+  let (loading, setLoading) = React.useState(_ => false)
+
+  let fetchData = () => {
+    open Promise
+    Promise.resolve(fixedTodos)
+    ->then(res => {
+      resolve(res)
+    })
+  }
+
+  React.useEffect0(() => {
+    setLoading(_ => true)
+    open Promise
+    fetchData()
+    ->Promise.then(res => {
+      setTodos(_ => res)
+      setLoading(_ => false)
+      resolve(res)
+    })
+    ->ignore
+    None
+  })
 
   let onChange = (e, id: string) => {
     let checked: bool = ReactEvent.Form.target(e)["checked"]
@@ -38,10 +60,17 @@ let make = () => {
     <TodoItem key={todo.id} body={todo.body} completed={todo.completed} onChange={e => onChange(e, todo.id)} />
   })
 
-  <>
-    <h1>{React.string("Todos")}</h1>
-    <div className="todo-list">
-      {React.array(todoList)}
-    </div>
-  </>
+  let loadingEl = <p>{React.string("Loading...")}</p>
+  let todoEl =
+    <>
+      <h1>{React.string("Todos")}</h1>
+      <div className="todo-list">
+        {React.array(todoList)}
+      </div>
+    </>
+
+  switch loading {
+  | true => loadingEl
+  | false => todoEl
+  }
 }
